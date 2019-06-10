@@ -1,14 +1,12 @@
+const nodeCleanup = require("node-cleanup");
+const sequelize = require("./db/sequelize");
 const express = require("express");
 const bodyParser = require("body-parser");
-const db = require("./db");
+
+const { Track } = require("./db/db");
 
 const trackRoutes = require("./routes/tracks");
-
-// db.select("id")
-//   .from("Tracks")
-//   .then(res => {
-//     console.log(JSON.stringify(res));
-//   });
+const speakerRoutes = require("./routes/speakers");
 
 const app = express();
 
@@ -24,10 +22,33 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/tracks", trackRoutes);
+// app.post("/tracks", (req, res) => {
+//   const track = {};
+//   track.title = req.body.title;
+//   Track.create(track).then(() => {
+//     console.log("Done creating track");
+//   });
+//   res.status(201).json({
+//     message: "Insert successful"
+//   });
+// });
 
-app.use((req, res) => {
-  res.status(404).send("<h1>Page not found</h1>");
+// app.use((req, res) => {
+//   res.status(404).send("<h1>Page not found</h1>");
+// });
+
+app.use("/tracks", trackRoutes);
+app.use("/speakers", speakerRoutes);
+
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
-app.listen(4000);
+const server = app.listen(4000, () => {
+  console.log("How about now?");
+});
+
+nodeCleanup(() => {
+  sequelize.close();
+  server.close();
+});
