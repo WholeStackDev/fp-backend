@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const controller = require("../controllers/tracks");
 
@@ -8,6 +10,8 @@ const controller = require("../controllers/tracks");
 
 // POST: /tracks/create
 router.post("/create", controller.postTrack);
+
+router.post("/upload", upload.single("upload"), controller.uploadTrack);
 
 // POST: /tracks/update?id=XXXXXXXX-XXXX-XXXX-XXXXXXXXXXXX
 // router.post("/update", controller.updateTrack);

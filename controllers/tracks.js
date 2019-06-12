@@ -25,6 +25,12 @@ exports.postTrack = async (req, res) => {
   res.status(201).json(results.dataValues);
 };
 
+exports.uploadTrack = async (req, res) => {
+  console.log(req);
+  console.log(req.file);
+  res.status(201).json({ test: "words" });
+};
+
 // exports.updateTrack = (req, res, next) => {
 //   throw { name: "NotImplementedError", message: "TODO" };
 // };

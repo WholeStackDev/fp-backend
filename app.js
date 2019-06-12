@@ -1,7 +1,9 @@
+require("dotenv").config();
 const nodeCleanup = require("node-cleanup");
 const sequelize = require("./db/sequelize");
 const express = require("express");
 const bodyParser = require("body-parser");
+const blob = require("./storage/blob");
 
 const { Track } = require("./db/db");
 

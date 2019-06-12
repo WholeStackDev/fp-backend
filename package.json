@@ -11,9 +11,12 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
+    "azure-storage": "^2.10.3",
     "body-parser": "^1.18.3",
+    "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "knex": "^0.16.5",
+    "multer": "^1.4.1",
     "mysql2": "^1.6.5",
     "node-cleanup": "^2.1.2",
     "sequelize": "^5.8.7",

@@ -1,13 +1,18 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize("main", "phillipsma3", "HA6Rk6t4L3Fp_i_QgANX", {
-  host: "phillips.database.windows.net",
-  dialect: "mssql",
-  dialectOptions: {
-    options: {
-      encrypt: true
+const sequelize = new Sequelize(
+  process.env.AZURE_DB_NAME,
+  process.env.AZURE_DB_USER,
+  process.env.AZURE_DB_PASSWORD,
+  {
+    host: process.env.AZURE_DB_HOST,
+    dialect: "mssql",
+    dialectOptions: {
+      options: {
+        encrypt: true
+      }
     }
   }
-});
+);
 
 module.exports = sequelize;

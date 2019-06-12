@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const nodeCleanup = require("node-cleanup");
 
 const sequelize = require("./sequelize");
