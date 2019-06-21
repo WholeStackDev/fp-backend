@@ -5,7 +5,7 @@ const Track = sequelize.define("track", {
   id: {
     allowNull: false,
     primaryKey: true,
-    type: "UNIQUEIDENTIFIER",
+    type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV1
   },
   title: {
@@ -25,11 +25,11 @@ const Track = sequelize.define("track", {
     allowNull: true
   },
   eventMonth: {
-    type: Sequelize.TINYINT,
+    type: Sequelize.SMALLINT,
     allowNull: true
   },
   eventDay: {
-    type: Sequelize.TINYINT,
+    type: Sequelize.SMALLINT,
     allowNull: true
   }
 });

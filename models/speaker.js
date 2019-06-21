@@ -5,7 +5,7 @@ const Speaker = sequelize.define("speaker", {
   id: {
     allowNull: false,
     primaryKey: true,
-    type: "UNIQUEIDENTIFIER",
+    type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV1
   },
   firstName: {
