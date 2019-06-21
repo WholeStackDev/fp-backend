@@ -9,6 +9,7 @@ const { Track } = require("./db/db");
 
 const trackRoutes = require("./routes/tracks");
 const speakerRoutes = require("./routes/speakers");
+const testRoutes = require("./routes/test");
 
 const app = express();
 
@@ -41,12 +42,13 @@ app.use((req, res, next) => {
 
 app.use("/tracks", trackRoutes);
 app.use("/speakers", speakerRoutes);
+app.use("/test", testRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 4000;
 
 const server = app.listen(port, () => {
   console.log("How about now?");
