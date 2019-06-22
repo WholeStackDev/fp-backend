@@ -1,14 +1,16 @@
 const { Track } = require("../db/db");
 
-// exports.getTracks = async (req, res, next) => {
-//   if (req.query.id) {
-//     const tracks = await db.select("id").from("tracks");
-//     console.log(tracks);
-//     res.status(200).json(tracks);
-//   } else {
-//     throw { name: "NotImplementedError", message: "TODO" };
-//   }
-// };
+exports.getTracks = async (req, res, next) => {
+  const results = await Track.findAll({ raw: true });
+  res.status(201).json(results);
+  // if (req.query.id) {
+  //   const tracks = await db.select("id").from("tracks");
+  //   console.log(tracks);
+  //   res.status(200).json(tracks);
+  // } else {
+  //   throw { name: "NotImplementedError", message: "TODO" };
+  // }
+};
 
 exports.postTrack = async (req, res) => {
   console.log(req.body);

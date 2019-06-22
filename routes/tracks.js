@@ -6,7 +6,7 @@ const upload = multer({ dest: "uploads/" });
 const controller = require("../controllers/tracks");
 
 // GET: /tracks
-// router.get("/", controller.getTracks);
+router.get("/", controller.getTracks);
 
 // POST: /tracks/create
 router.post("/create", controller.postTrack);
