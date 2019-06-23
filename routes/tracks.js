@@ -2,18 +2,19 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const upload = multer();
+const cors = require("cors");
 
 const controller = require("../controllers/tracks");
 
 // GET: /tracks
-router.get("/", controller.getTracks);
+router.get("/", cors(), controller.getTracks);
 
 // POST: /tracks/create
-router.post("/create", controller.postTrack);
+router.post("/create", cors(), controller.postTrack);
 
-router.post("/upload", upload.single("upload"), controller.uploadTrack);
+router.post("/upload", cors(), upload.single("upload"), controller.uploadTrack);
 
-router.get("/download", controller.downloadTrack);
+router.get("/download", cors(), controller.downloadTrack);
 
 // POST: /tracks/update?id=XXXXXXXX-XXXX-XXXX-XXXXXXXXXXXX
 // router.post("/update", controller.updateTrack);
