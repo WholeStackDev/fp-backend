@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./utilities/logs");
 const nodeCleanup = require("node-cleanup");
 const sequelize = require("./db/sequelize");
 const express = require("express");

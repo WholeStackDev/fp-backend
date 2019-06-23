@@ -1,9 +1,9 @@
+const { logError } = require("../utilities/logs");
 const { Track } = require("../db/db");
 const blob = require("../storage/blob");
-const fs = require("fs");
-const path = require("path");
+const { createReadStream } = require("../utilities/streamFromBuffer");
 
-exports.getTracks = async (req, res, next) => {
+exports.getTracks = async (req, res) => {
   const results = await Track.findAll({ raw: true });
   res.status(201).json(results);
 };
@@ -22,44 +22,23 @@ exports.postTrack = async (req, res) => {
 };
 
 exports.uploadTrack = async (req, res) => {
-  const newPath = path.join(global.tempPath, req.query.id + ".mp3");
-  fs.writeFile(newPath, req.file.buffer, err => {
-    try {
-      blob.createBlockBlobFromLocalFile(
-        "tracks",
-        req.query.id,
-        newPath,
-        err => {
-          if (err) throw err;
-          setTimeout(() => {
-            fs.unlink(newPath, () => {});
-          }, 20 * 1000);
-        }
-      );
-    } catch (error) {
-      fs.unlink(newPath, () => {
-        console.log("Code: E8761 - " + err);
-      });
-    }
-  });
-  res.status(201).json({ test: "words" });
+  const readableStream = createReadStream(req.file.buffer);
+  try {
+    readableStream.pipe(
+      blob.createWriteStreamToBlockBlob("tracks", req.query.id)
+    );
+  } catch (error) {
+    logError(error, 57616, "Unable to create Azure Block Blob on track upload");
+    res.status(503);
+  }
+  res.status(201);
 };
 
 exports.downloadTrack = async (req, res) => {
-  const id = req.query.id;
-  const filePath = path.join(global.tempPath, id + ".mp3");
-  blob.getBlobToLocalFile("tracks", id, filePath, err => {
-    if (err) throw err;
-    try {
-      res.download(filePath, () => {
-        setTimeout(() => {
-          fs.unlink(filePath, () => {});
-        }, 20 * 1000);
-      });
-    } catch (error) {
-      fs.unlink(filePath, () => {
-        console.log("Code: E8763 - " + err);
-      });
-    }
-  });
+  res.setHeader("content-type", "audio/mpeg");
+  blob
+    .createReadStream("tracks", req.query.id, error => {
+      logError(error, 93873, "Unable to stream file from Azure Blob Storage");
+    })
+    .pipe(res);
 };
