@@ -31,11 +31,15 @@ exports.uploadTrack = async (req, res) => {
         newPath,
         err => {
           if (err) throw err;
-          fs.unlink(newPath);
+          fs.unlink(newPath, () => {
+            console.log("Code: E8760 - " + err);
+          });
         }
       );
     } catch (error) {
-      fs.unlink(newPath);
+      fs.unlink(newPath, () => {
+        console.log("Code: E8761 - " + err);
+      });
     }
   });
   res.status(201).json({ test: "words" });
@@ -48,10 +52,14 @@ exports.downloadTrack = async (req, res) => {
     if (err) throw err;
     try {
       res.download(filePath, () => {
-        fs.unlink(filePath);
+        fs.unlink(filePath, () => {
+          console.log("Code: E8762 - " + err);
+        });
       });
     } catch (error) {
-      fs.unlink(filePath);
+      fs.unlink(filePath, () => {
+        console.log("Code: E8763 - " + err);
+      });
     }
   });
 };
