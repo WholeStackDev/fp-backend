@@ -8,7 +8,6 @@ blobSrv.createContainerIfNotExists(
   },
   (error, result, response) => {
     if (!error) {
-      console.log(result);
     }
   }
 );

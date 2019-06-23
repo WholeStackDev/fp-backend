@@ -3,13 +3,18 @@ const nodeCleanup = require("node-cleanup");
 const sequelize = require("./db/sequelize");
 const express = require("express");
 const bodyParser = require("body-parser");
-const blob = require("./storage/blob");
+var path = require("path");
+const fs = require("fs");
 
 const { Track } = require("./db/db");
 
 const trackRoutes = require("./routes/tracks");
 const speakerRoutes = require("./routes/speakers");
 const testRoutes = require("./routes/test");
+
+global.rootPath = path.resolve(__dirname);
+global.tempPath = path.join(global.rootPath, "temp/");
+if (!fs.existsSync(global.tempPath)) fs.mkdirSync(global.tempPath);
 
 const app = express();
 
@@ -50,9 +55,7 @@ app.get("/", (req, res) => {
 
 const port = process.env.PORT || 4000;
 
-const server = app.listen(port, () => {
-  console.log("How about now?");
-});
+const server = app.listen(port, () => {});
 
 nodeCleanup(() => {
   sequelize.close();
