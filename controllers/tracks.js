@@ -31,9 +31,9 @@ exports.uploadTrack = async (req, res) => {
         newPath,
         err => {
           if (err) throw err;
-          fs.unlink(newPath, () => {
-            console.log("Code: E8760 - " + err);
-          });
+          setTimeout(() => {
+            fs.unlink(newPath, () => {});
+          }, 20 * 1000);
         }
       );
     } catch (error) {
@@ -52,9 +52,9 @@ exports.downloadTrack = async (req, res) => {
     if (err) throw err;
     try {
       res.download(filePath, () => {
-        fs.unlink(filePath, () => {
-          console.log("Code: E8762 - " + err);
-        });
+        setTimeout(() => {
+          fs.unlink(filePath, () => {});
+        }, 20 * 1000);
       });
     } catch (error) {
       fs.unlink(filePath, () => {
