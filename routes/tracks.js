@@ -6,6 +6,8 @@ const cors = require("cors");
 
 const controller = require("../controllers/tracks");
 
+router.all("*", cors());
+
 // GET: /tracks
 router.get("/", cors(), controller.getTracks);
 
