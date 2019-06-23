@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 var path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 
 const { Track } = require("./db/db");
 
@@ -18,17 +19,19 @@ if (!fs.existsSync(global.tempPath)) fs.mkdirSync(global.tempPath);
 
 const app = express();
 
+app.use(cors());
+
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
 
 // app.post("/tracks", (req, res) => {
 //   const track = {};
