@@ -2,6 +2,8 @@
 
 This project is for creating a web audio player for sermons and messages in the Church of Christ. A small team is working to digitize thousands of cassettes from the past four or five decades and we want an app to host them that offers things we couldn't find in existing services.
 
+You can check out a live demo of the app [here](https://tinyurl.com/y5ohbjxd). It is deployed using Netlify and is always up to date with the master branch of the React frontend. The backend is hosted with Heroku and is kept in sync with the master branch of this repo.
+
 *This repo is for the backend Node.js app. The frontend React app can be found [here](https://github.com/WholeStackDev/fp-frontend).*
 
 ### Things completed so far
